@@ -1,6 +1,6 @@
 import { Controller, Get, Req, Res } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
-import { BrpService } from './brp.service';
 
 import {
   getSessionFromStorage,
@@ -8,14 +8,15 @@ import {
   Session,
 } from '@inrupt/solid-client-authn-node';
 import { getSolidDataset } from '@inrupt/solid-client';
-import { ConfigService } from '@nestjs/config';
+
+import { BrpService } from './brp.service';
 
 @Controller('brp')
 export class BrpController {
   port: number;
 
   constructor(
-    private configService: ConfigService,
+    private readonly configService: ConfigService,
     private readonly brpService: BrpService,
   ) {
     this.port = this.configService.get<number>('port');

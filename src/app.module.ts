@@ -5,6 +5,7 @@ import configuration from './config/configuration';
 
 import { BrkController } from './brk/brk.controller';
 import { BrpController } from './brp/brp.controller';
+import { BrpService } from './brp/brp.service';
 import { AppController } from './app.controller';
 
 @Module({
@@ -14,6 +15,6 @@ import { AppController } from './app.controller';
     }),
   ],
   controllers: [AppController, BrkController, BrpController],
-  providers: [],
+  providers: [BrpService],
 })
 export class AppModule {}

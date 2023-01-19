@@ -1,3 +1,6 @@
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
 export class BrpService {
   issueCredential(webID: string) {
     return {
@@ -7,7 +10,7 @@ export class BrpService {
       ],
       id: 'https://kadaster.nl/credentials/3732',
       type: ['VerifiableCredential', 'AlumniCredential'],
-      issuer: this.controller,
+      issuer: 'this.controller',
       issuanceDate: '2020-03-16T22:37:26.544Z',
       credentialSubject: {
         id: webID,
