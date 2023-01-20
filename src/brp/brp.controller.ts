@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res } from '@nestjs/common';
+import { Controller, Get, Param, Req, Res } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 
@@ -52,6 +52,7 @@ export class BrpController {
 
     // Post 2.
     // Create mock data?
+    console.log('login done');
   }
 
   @Get('redirect-from-solid-idp')
@@ -122,22 +123,22 @@ export class BrpController {
     return `<p>There are currently [${sessionIds.length}] visitors.</p>`;
   }
 
-  @Get('issue')
-  async issueCredential(@Req() req: Request): Promise<string> {
-    const session = await getSessionFromStorage((req.session as any).sessionId);
+  @Get('credentials/issue/:webID')
+  async issueCredential(@Param('webID') webID): Promise<object> {
+    // const session = await getSessionFromStorage((req.session as any).sessionId);
 
-    if (!session || session.info.isLoggedIn) {
-      return '<p>You are not logged in.</p>';
-    }
+    // if (!session || session.info.isLoggedIn) {
+    //   throw new Error('You are not logged in.');
+    // }
 
     // const response = await session.fetch(url);
-    const dataset = getSolidDataset(session.info.webId, {
-      fetch: session.fetch,
-    });
+    // const dataset = getSolidDataset(session.info.webId, {
+    //   fetch: session.fetch,
+    // });
 
-    console.log(dataset);
-    const result = this.brpService.issueCredential(session.info.webId);
+    // console.log(dataset);
+    const result = this.brpService.issueVC(webID);
 
-    return `<p>Credential created for ${session.info.webId}.</p>`;
+    return result;
   }
 }
