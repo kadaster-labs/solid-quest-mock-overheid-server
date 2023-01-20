@@ -22,6 +22,9 @@ export class BrpController {
     this.port = this.configService.get<number>('port');
   }
 
+  // Inspired by:
+  // - https://docs.inrupt.com/developer-tools/javascript/client-libraries/tutorial/authenticate-nodejs-web-server/
+
   @Get('login')
   async login(@Req() req: Request, @Res() res): Promise<any> {
     // 1. Create a new Session
