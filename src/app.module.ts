@@ -6,6 +6,7 @@ import { join } from 'path';
 import configuration from './config/configuration';
 
 import { BrkController } from './brk/brk.controller';
+import { BrkService } from './brk/brk.service';
 import { BrpController } from './brp/brp.controller';
 import { BrpService } from './brp/brp.service';
 import { AppController } from './app.controller';
@@ -21,6 +22,6 @@ import { AppController } from './app.controller';
     }),
   ],
   controllers: [AppController, BrkController, BrpController],
-  providers: [BrpService],
+  providers: [BrpService, BrkService],
 })
 export class AppModule {}

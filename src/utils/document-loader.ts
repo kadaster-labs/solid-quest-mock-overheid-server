@@ -9,27 +9,23 @@ import {
   v1Examples,
 } from './documents';
 
-import * as data1 from '../../public/contexts/kadasterCredentials.json';
-import * as data2 from '../../public/keys/brp.json';
-import * as data3 from '../../public/keys/kadaster.json';
+import * as brkCredentials from '../../public/contexts/brk-credentials.json';
+import * as brpCredentials from '../../public/contexts/brp-credentials.json';
+import * as brkKeys from '../../public/keys/kadaster.json';
+import * as brpKeys from '../../public/keys/brp.json';
 
 const loader = securityLoader();
 
 loader.addStatic(
-  'http://localhost:8080/public/contexts/kadasterCredentials.json',
-  // data.default,
-  data1,
+  'http://localhost:8080/public/contexts/brk-credentials.json',
+  brkCredentials,
 );
 loader.addStatic(
-  'http://localhost:8080/public/keys/brp.json',
-  // data.default,
-  data2,
+  'http://localhost:8080/public/contexts/brp-credentials.json',
+  brpCredentials,
 );
-loader.addStatic(
-  'http://localhost:8080/public/keys/kadaster.json',
-  // data.default,
-  data3,
-);
+loader.addStatic('http://localhost:8080/public/keys/kadaster.json', brkKeys);
+loader.addStatic('http://localhost:8080/public/keys/brp.json', brpKeys);
 loader.addStatic(v1Controller, v1Examples);
 loader.addStatic(odrlController, odrlDocument);
 

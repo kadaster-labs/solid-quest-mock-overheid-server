@@ -4,11 +4,11 @@ import { Ed25519VerificationKey2020 } from '@digitalcredentials/ed25519-verifica
 import * as vc from '@digitalcredentials/vc';
 
 import { documentLoader } from '../utils/document-loader';
-import * as brpData from '../../data/brp_data.json';
+import * as brkData from '../../data/brk_data.json';
 
 @Injectable()
-export class BrpService {
-  private readonly signingSeed = 'brp';
+export class BrkService {
+  private readonly signingSeed = 'kadaster';
 
   private validateInput(webID) {
     if (!webID) {
@@ -16,36 +16,33 @@ export class BrpService {
     }
 
     // Some db lookup to check if person is known to the agency
-    const knownCitizens = [
-      'http://localhost:3001/verkoper-vera/profile/card#me',
-      'http://localhost:3001/koper-koos/profile/card#me',
-    ];
+    const knownOwners = ['http://localhost:3001/verkoper-vera/profile/card#me'];
 
-    if (!knownCitizens.includes(webID)) {
+    if (!knownOwners.includes(webID)) {
       throw new Error('Unknown webID');
     }
   }
 
-  private createCredential(person: object) {
+  private createCredential(eigenaarschap: object) {
     return {
       '@context': [
         'https://www.w3.org/2018/credentials/v1',
         'https://www.w3.org/2018/credentials/examples/v1',
-        'http://localhost:8080/public/contexts/brp-credentials.json',
+        'http://localhost:8080/public/contexts/brk-credentials.json',
       ],
       id: 'https://kadaster.nl/credentials/3732',
-      type: ['VerifiableCredential', 'IdentificatieCredential'],
-      issuer: 'http://localhost:8080/public/keys/brp.json',
+      type: ['VerifiableCredential', 'EigendomCredential'],
+      issuer: 'http://localhost:8080/public/keys/kadaster.json',
       issuanceDate: '2020-03-16T22:37:26.544Z',
       credentialSubject: {
-        ...person,
+        ...eigenaarschap,
       },
     };
   }
 
   private async signCredential(credential) {
     const keyPair = await Ed25519VerificationKey2020.generate({
-      controller: 'http://localhost:8080/public/keys/brp.json',
+      controller: 'http://localhost:8080/public/keys/kadaster.json',
       // Make sure the keyPair.publicKeyMultibase is updated in issuer.json
       seed: Buffer.alloc(32).fill(this.signingSeed),
     });
@@ -68,18 +65,18 @@ export class BrpService {
 
   public async issueVC(webID: string) {
     this.validateInput(webID);
-    const person = this.getDataFromDB(webID);
-    const credential = this.createCredential(person);
+    const eigenaarschap = this.getDataFromDB(webID);
+    const credential = this.createCredential(eigenaarschap);
     const verifiableCredential = await this.signCredential(credential);
     return verifiableCredential;
   }
 
   private getDataFromDB(webID: string) {
     // find element in array based on property
-    const person = brpData.find((element) => element.webID === webID);
-    if (!person) {
+    const eigenaarschap = brkData.find((element) => element.webID === webID);
+    if (!eigenaarschap) {
       throw new Error('Unknown webID');
     }
-    return person;
+    return eigenaarschap;
   }
 }

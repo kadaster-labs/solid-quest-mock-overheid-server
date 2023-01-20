@@ -1,0 +1,37 @@
+[
+    {
+        "webID": "http://localhost:3001/koper-koos/profile/card#me",
+        "type": "NatuurlijkPersoon",
+        "aanduidingNaamgebruik": "De heer",
+        "geboorte": {
+            "type": "Geboorte",
+            "geboortedatum": "1994-01-06",
+            "geboorteland": "Nederland",
+            "geboorteplaats": "Amsterdam"
+        },
+        "indicatieGeheim": "false",
+        "indicatieOverleden": "false",
+        "isVerbondenIn": {
+            "type": "Partnerschap",
+            "datumSluiting": "2012-01-01",
+            "soortVerbintenis": "Huwelijk",
+            "verbindt": 1337,
+            "verbintenisVoorwaarden": "Gemeenschap van goederen"
+        },
+        "naam": "Koos Kadastersen"
+    },
+    {
+        "webID": "http://localhost:3001/verkoper-vera/profile/card#me",
+        "type": "NatuurlijkPersoon",
+        "aanduidingNaamgebruik": "Mevrouw",
+        "geboorte": {
+            "type": "Geboorte",
+            "geboortedatum": "1994-01-06",
+            "geboorteland": "Nederland",
+            "geboorteplaats": "Amsterdam"
+        },
+        "indicatieGeheim": "false",
+        "indicatieOverleden": "false",
+        "naam": "Vera Voorbraak"
+    }
+]

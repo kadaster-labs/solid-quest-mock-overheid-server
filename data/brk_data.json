@@ -1,0 +1,12 @@
+[
+    {
+        "webID": "http://localhost:3001/verkoper-vera/profile/card#me",
+        "eigendom": {
+            "perceel": {
+                "begrenzingPerceel": "",
+                "kadastraleGrootte": "42",
+                "identificatie": 10020263270000
+            }
+        }
+    }
+]
