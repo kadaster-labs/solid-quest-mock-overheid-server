@@ -1,4 +1,4 @@
-# Koek Server
+# Koopovereenkomst Server
 
 <p align="center">
   <img src="koek_server.jpg" width="200" alt="Koek Server Logo" />
