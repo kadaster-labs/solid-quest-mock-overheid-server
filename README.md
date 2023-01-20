@@ -39,6 +39,43 @@ Like scenario 3, except: There is a separate Identity Provider for both the Pod 
 This scenario requires us to have some way to verify that a Pod belongs to the person. Otherwise, there doesn't seem a way to link the Pod owner to the verified citizen. It isn't quite clear yet how this would work. Perhaps citizens could log into mijn.overheid.nl, which shows some unique code. The citizen then places this code at a public location in their pod, after which they provide a link to it to mijn.overheid.nl. It effectively functions a verification code. Then, whenever someone logs in with DigiD to the _BRP_ / _BRK_, the VC will be issued with a reference to their webID(?).
 
 
+## Example Credentials
+The properties in the credentials originate from the Zorgeloos Vastgoed ontology [[1](https://taxonomie.zorgeloosvastgoed.nl/zv/nl/), [2](https://github.com/bp4mc2/bp4mc2-zvg/blob/master/informatiemodel/rdf/ontologie.ttl)], with an added _webID_ property. The context for the properties used in the credentials can be found in `/public/contexts/`.
+
+### BRP - IdentificatieCredential
+An identification credential contains the following:
+```json
+{
+    "webID": "http://localhost:3001/koper-koos/profile/card#me",
+    "type": "NatuurlijkPersoon",
+    "aanduidingNaamgebruik": "De heer",
+    "geboorte": {
+        "type": "Geboorte",
+        "geboortedatum": "1994-01-06",
+        "geboorteland": "Nederland",
+        "geboorteplaats": "Apeldoorn"
+    },
+    "naam": "Koos"
+}
+```
+
+### BRK - EigendomCredential
+An ownership credential contains the following:
+```json
+{
+    "webID": "http://localhost:3001/verkoper-vera/profile/card#me",
+    "eigendom": {
+        "perceel": {
+            "begrenzingPerceel": "",
+            "kadastraleGrootte": "42",
+            "identificatie": 10020263270000
+        }
+    }
+}
+```
+
+The `eigendom.perceel.identificatie` can be used to query the [Kadaster Knowledge Graph](https://data.labs.kadaster.nl/dst/kkg/) for information about the parcel.
+
 ## Project structure
 ```
 .
