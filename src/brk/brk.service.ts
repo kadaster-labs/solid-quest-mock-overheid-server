@@ -31,11 +31,11 @@ export class BrkService {
       '@context': [
         'https://www.w3.org/2018/credentials/v1',
         'https://www.w3.org/2018/credentials/examples/v1',
-        'http://localhost:8081/contexts/brk-credentials.json',
+        'http://localhost:8081/contexts/brk-credentials.jsonld',
       ],
       id: 'https://kadaster.nl/credentials/3732',
       type: ['VerifiableCredential', 'EigendomCredential'],
-      issuer: 'http://localhost:8081/keys/brk.json',
+      issuer: 'http://localhost:8081/keys/brk.jsonld',
       issuanceDate: '2020-03-16T22:37:26.544Z',
       credentialSubject: {
         ...eigenaarschap,

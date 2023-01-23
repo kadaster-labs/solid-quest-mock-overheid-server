@@ -33,11 +33,11 @@ export class BrpService {
       '@context': [
         'https://www.w3.org/2018/credentials/v1',
         'https://www.w3.org/2018/credentials/examples/v1',
-        'http://localhost:8081/contexts/brp-credentials.json',
+        'http://localhost:8081/contexts/brp-credentials.jsonld',
       ],
       id: 'https://kadaster.nl/credentials/3732',
       type: ['VerifiableCredential', 'IdentificatieCredential'],
-      issuer: 'http://localhost:8081/keys/brp.json',
+      issuer: 'http://localhost:8081/keys/brp.jsonld',
       issuanceDate: '2020-03-16T22:37:26.544Z',
       credentialSubject: {
         ...person,
