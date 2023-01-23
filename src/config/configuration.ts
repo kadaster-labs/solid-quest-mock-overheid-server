@@ -1,7 +1,4 @@
 export default () => ({
   port: parseInt(process.env.PORT, 10) || 8080,
-  database: {
-    host: process.env.DATABASE_HOST,
-    port: parseInt(process.env.DATABASE_PORT, 10) || 5432,
-  },
+  koekVCApiUrl: process.env.VC_API_URL || 'http://localhost:8081',
 });

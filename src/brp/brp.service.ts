@@ -3,9 +3,15 @@ import { Injectable } from '@nestjs/common';
 import { GovernmentAgency, IssuerCredentialsApi } from '../api/vcApi';
 
 import * as brpData from '../../data/brp_data.json';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class BrpService {
+  vcAPIUrl: string;
+
+  constructor(private readonly config: ConfigService) {
+    this.vcAPIUrl = this.config.get<string>('koekVCApiUrl');
+  }
   private validateInput(webID) {
     if (!webID) {
       throw new Error('Missing webID');
@@ -44,7 +50,7 @@ export class BrpService {
     const person = this.getDataFromDB(webID);
     const credential = this.createCredential(person);
 
-    const api = new IssuerCredentialsApi({ basePath: 'http://localhost:8081' });
+    const api = new IssuerCredentialsApi({ basePath: this.vcAPIUrl });
     const verifiableCredential = await api.issueCredential(
       GovernmentAgency.BRP,
       { credential },
