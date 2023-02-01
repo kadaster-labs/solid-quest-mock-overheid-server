@@ -40,7 +40,7 @@ This scenario requires us to have some way to verify that a Pod belongs to the p
 
 
 ## Example Credentials
-The properties in the credentials originate from the Zorgeloos Vastgoed ontology [[1](https://taxonomie.zorgeloosvastgoed.nl/zv/nl/), [2](https://github.com/bp4mc2/bp4mc2-zvg/blob/master/informatiemodel/rdf/ontologie.ttl)], with an added _webID_ property. The context for the properties used in the credentials can be found in `/public/contexts/`.
+The properties in the credentials originate from the Zorgeloos Vastgoed ontology [[1](https://taxonomie.zorgeloosvastgoed.nl/zv/nl/), [2](https://github.com/bp4mc2/bp4mc2-zvg/blob/master/informatiemodel/rdf/ontologie.ttl)], with an added _webID_ property. The context for the properties used in the credentials can be found in `/public/contexts/` in VC API ([link](https://github.com/kadaster-labs/solid-quest-koek-vc-api/tree/main/public/contexts)).
 
 ### BRP - IdentificatieCredential
 An identification credential contains the following:
