@@ -12,8 +12,8 @@ async function bootstrap() {
   app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle('Koek Server')
-    .setDescription('The Koek API description')
+    .setTitle('Mock Overheid Server')
+    .setDescription('The MOS API description')
     .setVersion('1.0')
     .build();
 

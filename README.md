@@ -1,7 +1,7 @@
-# Koopovereenkomst Server
+# Mock Overheid Server
 
 <p align="center">
-  <img src="koek_server.jpg" width="200" alt="Koek Server Logo" />
+  <img src="koek_server.jpg" width="200" alt="MOS Logo" />
 </p>
 <p align="center">
     Backend serving mock data for <a href="https://github.com/kadaster-labs/solid-quest">Solid Quest</a> in NestJS.

@@ -10,7 +10,7 @@ export class BrkService {
   vcAPIUrl: string;
 
   constructor(private readonly config: ConfigService) {
-    this.vcAPIUrl = this.config.get<string>('koekVCApiUrl');
+    this.vcAPIUrl = this.config.get<string>('VCApiUrl');
   }
 
   private validateInput(webID) {
