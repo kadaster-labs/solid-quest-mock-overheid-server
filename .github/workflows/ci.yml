@@ -1,0 +1,22 @@
+name: MOS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  node:
+    runs-on: ubuntu-latest
+
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build image from Dockerfile
+        run: |
+          docker build -t kadaster-labs/solid-quest-mock-overheid-server:${{ github.sha }} .

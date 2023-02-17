@@ -1,6 +1,6 @@
 
 # First Stage: to install and build dependences
-FROM node:gallium AS builder
+FROM node:16 AS builder
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ RUN npm run build && \
 
 
 # Second Stage: use lightweight alpine image and run as non-root
-FROM node:gallium-alpine
+FROM node:16-alpine
 
 RUN mkdir -p /home/node/app && chown -R node:node /home/node/app
 
