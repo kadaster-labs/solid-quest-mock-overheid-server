@@ -1,5 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
+import { DatapleinService } from '../dataplein/dataplein.service';
 import { BrkController } from './brk.controller';
 import { BrkService } from './brk.service';
 
@@ -17,6 +18,7 @@ describe('BrkController', () => {
       controllers: [BrkController],
       providers: [
         BrkService,
+        DatapleinService,
         {
           provide: ConfigService,
           useValue: mockConfigService,
