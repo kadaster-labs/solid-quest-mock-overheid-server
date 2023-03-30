@@ -11,8 +11,6 @@ import {
 
 @Injectable()
 export class DatapleinService {
-  constructor() {}
-
   public validateWebIDExists(webID) {
     if (!webID) {
       throw new Error('Missing webID');
@@ -76,7 +74,7 @@ export class DatapleinService {
   private createEigenaarschap(webID: string, address: SolidAddress) {
     return new Promise((resolve, reject) => {
       const newEigenaarschap = generateBRKEigendom(webID, address);
-      console.log(newEigenaarschap)
+      console.log(newEigenaarschap);
       brkData.push(newEigenaarschap as any);
       resolve(webID);
     });
