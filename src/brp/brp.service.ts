@@ -1,31 +1,19 @@
 import { Injectable } from '@nestjs/common';
 
-import { GovernmentAgency, IssuerCredentialsApi } from '../api/vcApi';
-
-import * as brpData from '../../data/brp_data.json';
 import { ConfigService } from '@nestjs/config';
+
+import { GovernmentAgency, IssuerCredentialsApi } from '../api/vcApi';
+import { DatapleinService } from '../dataplein/dataplein.service';
 
 @Injectable()
 export class BrpService {
   vcAPIUrl: string;
 
-  constructor(private readonly config: ConfigService) {
+  constructor(
+    private readonly config: ConfigService,
+    private readonly overheidDataService: DatapleinService,
+  ) {
     this.vcAPIUrl = this.config.get<string>('VCApiUrl');
-  }
-  private validateInput(webID) {
-    if (!webID) {
-      throw new Error('Missing webID');
-    }
-
-    // Some db lookup to check if person is known to the agency
-    const knownCitizens = [
-      'http://localhost:3001/verkoper-vera/profile/card#me',
-      'http://localhost:3001/koper-koos/profile/card#me',
-    ];
-
-    if (!knownCitizens.includes(webID)) {
-      throw new Error('Unknown webID');
-    }
   }
 
   private createCredential(person: object) {
@@ -46,8 +34,7 @@ export class BrpService {
   }
 
   public async issueVC(webID: string) {
-    this.validateInput(webID);
-    const person = this.getDataFromDB(webID);
+    const person = this.overheidDataService.getPerson(webID);
     const credential = this.createCredential(person);
 
     const api = new IssuerCredentialsApi({ basePath: this.vcAPIUrl });
@@ -57,14 +44,5 @@ export class BrpService {
     );
 
     return verifiableCredential;
-  }
-
-  private getDataFromDB(webID: string) {
-    // find element in array based on property
-    const person = brpData.find((element) => element.webID === webID);
-    if (!person) {
-      throw new Error('Unknown webID');
-    }
-    return person;
   }
 }

@@ -69,6 +69,11 @@ An ownership credential contains the following:
             "begrenzingPerceel": "",
             "kadastraleGrootte": "42",
             "identificatie": 10020263270000
+        },
+        "pand": {
+            "adres": "Laan van Westenenk 701",
+            "postcode": "7334 DP",
+            "woonplaats": "Apeldoorn"
         }
     }
 }
