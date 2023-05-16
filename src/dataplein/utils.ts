@@ -28,7 +28,11 @@ export function generateBRPPerson(webID: string, person: SolidPerson) {
     naam: person.name || faker.name.fullName(),
     geboorte: {
       type: 'Geboorte',
-      geboortedatum: formatDate(new Date(person.bday) || faker.date.past()),
+      geboortedatum: formatDate(
+        person.bday
+          ? new Date(person.bday)
+          : faker.date.birthdate({ min: 18, mode: 'age' }),
+      ),
       geboorteland: 'Nederland',
       geboorteplaats: faker.address.city(),
     },

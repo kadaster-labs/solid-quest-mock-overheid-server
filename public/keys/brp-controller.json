@@ -1,0 +1,5 @@
+{
+    "@context": "https://w3id.org/security/v2",
+    "id": "http://localhost:8080/keys/brp-controller.json",
+    "assertionMethod": ["http://localhost:8080/keys/brp.json"]
+  }
