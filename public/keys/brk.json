@@ -1,0 +1,5 @@
+{
+    "id": "http://localhost:8080/keys/brk.json",
+    "controller": "http://localhost:8080/keys/brk-controller.json",
+    "publicKeyBase58": "mVNnChk4sPGw4pyoZyTiGPR8MF7n2wHTsucHNHufKrp3UHEy6FwudoYUPWBwgmYJUitDHduR885pf5CNxTLT5Cy4iSfxgJMJoweUMWdWkT8JAXWAmpfAwc7oQBAnKN92Ctv"
+}
