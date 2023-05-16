@@ -9,10 +9,11 @@ RUN npm ci
 
 COPY tsconfig*.json ./
 COPY src src
+COPY public public
 COPY data data
 
 RUN npm run build && \
-    npm prune --production
+    npm prune --omit=dev
 
 
 # Second Stage: use lightweight alpine image and run as non-root
