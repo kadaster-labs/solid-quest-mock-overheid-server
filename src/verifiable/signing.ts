@@ -1,14 +1,23 @@
 import {
   BbsBlsSignature2020,
+  BbsBlsSignatureProof2020,
   Bls12381G2KeyPair,
+  deriveProof,
 } from '@mattrglobal/jsonld-signatures-bbs';
 import * as bs58 from 'bs58';
-import { extendContextLoader, purposes, sign, verify } from 'jsonld-signatures';
+import {
+  extendContextLoader,
+  purposes,
+  sign,
+  suites,
+  verify,
+} from 'jsonld-signatures';
 
 import * as bbsContext from './data/bbs.json';
 import * as credentialContext from './data/credentialsContext.json';
 import * as odrlContext from './data/odrl.json';
 import * as suiteContext from './data/suiteContext.json';
+import * as revealDocument from './data/deriveProofFrame.json';
 
 import * as brkCredentialContext from '../../public/contexts/brk-credentials.json';
 import * as brpCredentialContext from '../../public/contexts/brp-credentials.json';
@@ -77,19 +86,40 @@ export class Signing {
   // Sign the input document
   async signDocument(inputDocument: object): Promise<any> {
     const purpose = new purposes.AssertionProofPurpose();
-    return await sign(inputDocument, {
-      suite: new BbsBlsSignature2020({ key: this.keyPair }),
-      purpose,
+    return await sign(
+      { ...inputDocument }, // pass copy of document, as original document will be mutated
+      {
+        suite: new BbsBlsSignature2020({ key: this.keyPair }),
+        purpose,
+        documentLoader,
+      },
+    );
+  }
+
+  async verifyDocument(signedDocument: any): Promise<any> {
+    let suite: suites.LinkedDataProof;
+    if (signedDocument.proof.type === 'BbsBlsSignature2020') {
+      suite = new BbsBlsSignature2020();
+    } else if (signedDocument.proof.type === 'BbsBlsSignatureProof2020') {
+      suite = new BbsBlsSignatureProof2020();
+    } else {
+      throw new Error('Unsupported signature type');
+    }
+
+    return await verify(signedDocument, {
+      suite,
+      purpose: new purposes.AssertionProofPurpose(),
       documentLoader,
     });
   }
 
-  async verifyDocument(signedDocument: any): Promise<any> {
-    console.log('verifying document', signedDocument);
-    return await verify(signedDocument, {
-      suite: new BbsBlsSignature2020(),
-      purpose: new purposes.AssertionProofPurpose(),
+  async deriveProofFromDocument(signedDocument: any): Promise<any> {
+    // Derive a proof
+    const derivedProof = await deriveProof(signedDocument, revealDocument, {
+      suite: new BbsBlsSignatureProof2020(),
       documentLoader,
     });
+
+    return { vc: derivedProof };
   }
 }
